@@ -1,0 +1,25 @@
+{
+  "name": "demo-blaze-automation",
+  "version": "1.0.0",
+  "description": "E2E automation framework for DemoBlaze using Playwright and TypeScript",
+  "scripts": {
+    "test": "playwright test",
+    "test:chromium": "playwright test --project=chromium",
+    "test:headed": "playwright test --headed",
+    "report": "playwright show-report"
+  },
+  "keywords": [
+    "playwright",
+    "automation",
+    "testing",
+    "typescript"
+  ],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@playwright/test": "^1.41.0",
+    "@types/node": "^20.11.0",
+    "playwright-smart-reporter": "^1.0.6",
+    "typescript": "^5.3.3"
+  }
+}

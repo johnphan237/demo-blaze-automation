@@ -1,0 +1,12 @@
+node_modules/
+test-results/
+playwright-report/
+blob-report/
+playwright/.cache/
+dist/
+.env
+
+# Smart Reporter Artifacts
+src/tests/smart-report.html
+src/tests/test-history.json
+src/tests/history-runs/
