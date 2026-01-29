@@ -6,6 +6,11 @@ on:
   pull_request:
     branches: [ main, master ]
 
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
 jobs:
   test:
     timeout-minutes: 60
@@ -38,11 +43,34 @@ jobs:
         path: src/tests/test-history.json
         key: test-history-${{ github.ref }}-${{ github.run_id }}
     
+    - name: Copy Smart Report to Report Folder
+      run: cp src/tests/smart-report.html playwright-report/
+
     - uses: actions/upload-artifact@v4
       if: always()
       with:
         name: playwright-report
-        path: |
-          playwright-report/
-          src/tests/smart-report.html
+        path: playwright-report/
         retention-days: 30
+    
+    - name: Setup Pages
+      uses: actions/configure-pages@v4
+    
+    - name: Upload artifact
+      uses: actions/upload-pages-artifact@v3
+      with:
+        path: playwright-report/
+
+  deploy:
+    needs: test
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
